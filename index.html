@@ -1,741 +1,882 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Friends in SoCal – Hire a Friend to Get Things Done</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    /* =============================
-       TOKENS
-    ============================= */
-    :root {
-      --primary:        #1a1a1a;
-      --secondary:      #2d2d2d;
-      --accent:         #ff6900;
-      --accent-light:   #fcb900;
-      --palm-green:     #2d5016;
-      --palm-light:     #7c9850;
-      --palm-brown:     #8b6f47;
-      --white:          #ffffff;
-      --cream:          #faf9f7;
-      --gray-100:       #f8f9fa;
-      --gray-200:       #e9ecef;
-      --gray-600:       #6c757d;
-      --gray-800:       #343a40;
-      --orange-grad:    linear-gradient(135deg, #fcb900 0%, #ff6900 100%);
-      --palm-grad:      linear-gradient(135deg, #7c9850 0%, #2d5016 100%);
-      --shadow:         0 10px 40px rgba(0,0,0,0.12);
-      --shadow-heavy:   0 20px 60px rgba(0,0,0,0.25);
-    }
-
-    /* =============================
-       RESET
-    ============================= */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--primary);
-      color: var(--cream);
-      line-height: 1.65;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    /* =============================
-       UTILITY
-    ============================= */
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .section { padding: 96px 24px; }
-
-    .section-eyebrow {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent-light);
-      margin-bottom: 16px;
-    }
-
-    /* =============================
-       BUTTONS
-    ============================= */
-    .btn {
-      display: inline-block;
-      padding: 15px 32px;
-      border-radius: 50px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-      border: none;
-      text-align: center;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.3);
-    }
-
-    .btn-gold {
-      background: var(--orange-grad);
-      color: var(--white);
-    }
-
-    .btn-outline-cream {
-      background: transparent;
-      color: var(--cream);
-      border: 2px solid rgba(255,255,255,0.5);
-    }
-
-    .btn-outline-cream:hover {
-      border-color: var(--accent-light);
-      color: var(--accent-light);
-    }
-
-    .btn-outline-gold {
-      background: transparent;
-      color: var(--accent);
-      border: 2px solid var(--accent);
-    }
-
-    .btn-outline-gold:hover {
-      background: var(--accent);
-      color: var(--white);
-    }
-
-    .btn-green {
-      background: var(--palm-grad);
-      color: var(--white);
-    }
-
-    /* =============================
-       NAV
-    ============================= */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(26,26,26,0.94);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 16px 24px;
-    }
-
-    .nav-inner {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--cream);
-    }
-
-    .nav-logo span { color: var(--accent-light); }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.7);
-    }
-
-    .nav-links a:hover { color: var(--accent-light); }
-
-    @media (max-width: 640px) { .nav-links { display: none; } }
-
-    /* =============================
-       HERO
-    ============================= */
-    #hero {
-      position: relative;
-      min-height: 92vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 24px;
-      overflow: hidden;
-      background:
-        linear-gradient(160deg,
-          rgba(26,26,26,0.72) 0%,
-          rgba(26,26,26,0.55) 50%,
-          rgba(26,26,26,0.8) 100%),
-        linear-gradient(135deg, #3d1a00 0%, #1a0a00 40%, #0d1a08 100%);
-    }
-
-    /* Subtle palm silhouette overlay */
-    #hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 70% 50%, rgba(255,105,0,0.12) 0%, transparent 65%),
-                  radial-gradient(ellipse at 20% 80%, rgba(45,80,22,0.2) 0%, transparent 55%);
-      pointer-events: none;
-    }
-
-    .hero-content { position: relative; z-index: 1; max-width: 760px; }
-
-    #hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 5.5vw, 4rem);
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 24px;
-      color: var(--white);
-    }
-
-    #hero h1 em {
-      font-style: italic;
-      background: var(--orange-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    #hero p {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      max-width: 540px;
-      margin: 0 auto 48px;
-      color: rgba(250,249,247,0.82);
-      font-weight: 300;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* =============================
-       SERVICES
-    ============================= */
-    #services {
-      background: var(--cream);
-      color: var(--primary);
-    }
-
-    #services .section-eyebrow { color: var(--accent); }
-
-    #services h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: var(--primary);
-    }
-
-    #services .intro {
-      font-size: 1.05rem;
-      color: var(--gray-600);
-      max-width: 600px;
-      margin-bottom: 52px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
-      margin-bottom: 48px;
-    }
-
-    .service-card {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: 16px;
-      padding: 28px 26px;
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      transition: box-shadow 0.2s, transform 0.2s;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-    }
-
-    .service-card:hover {
-      box-shadow: 0 12px 36px rgba(255,105,0,0.12);
-      transform: translateY(-3px);
-    }
-
-    .service-icon {
-      font-size: 1.8rem;
-      flex-shrink: 0;
-      width: 48px;
-      height: 48px;
-      background: var(--gray-100);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .service-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 6px;
-    }
-
-    .service-card p {
-      font-size: 0.84rem;
-      color: var(--gray-600);
-      line-height: 1.55;
-    }
-
-    .service-card p a { color: var(--accent); font-weight: 600; }
-
-    .services-quote {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: var(--cream);
-      border-radius: 20px;
-      padding: 36px 40px;
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      font-style: italic;
-      font-weight: 500;
-      border-left: 4px solid var(--accent-light);
-    }
-
-    /* =============================
-       STADIUM
-    ============================= */
-    #stadium {
-      background: linear-gradient(160deg, #0d0d0d, #1a0a00, #2a1000);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    #stadium::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(255,105,0,0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    #stadium .section-eyebrow { color: var(--accent-light); }
-
-    #stadium h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 800;
-      margin-bottom: 18px;
-      color: var(--white);
-    }
-
-    #stadium p {
-      font-size: 1.1rem;
-      max-width: 500px;
-      margin: 0 auto 44px;
-      color: rgba(250,249,247,0.78);
-      font-weight: 300;
-    }
-
-    .stadium-icon {
-      font-size: 4rem;
-      margin-bottom: 24px;
-      display: block;
-    }
-
-    /* =============================
-       SMOOTHIES
-    ============================= */
-    #smoothies {
-      background: var(--palm-green);
-      color: var(--white);
-    }
-
-    .section-two-col {
-      display: flex;
-      align-items: center;
-      gap: 64px;
-      flex-wrap: wrap;
-    }
-
-    .col-text { flex: 1; min-width: 280px; }
-    .col-visual { flex: 0 0 auto; text-align: center; }
-
-    #smoothies .section-eyebrow { color: var(--accent-light); }
-
-    #smoothies h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    #smoothies p {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.82);
-      margin-bottom: 32px;
-      max-width: 420px;
-      font-weight: 300;
-    }
-
-    .smoothie-visual {
-      font-size: 7rem;
-      line-height: 1;
-    }
-
-    .powered-by {
-      margin-top: 14px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.55);
-    }
-
-    .powered-by a {
-      color: var(--accent-light);
-      font-weight: 600;
-    }
-
-    /* =============================
-       CONTACT
-    ============================= */
-    #contact { background: var(--secondary); }
-
-    #contact .section-eyebrow { color: var(--accent-light); }
-
-    #contact h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--white);
-    }
-
-    .contact-subtext {
-      font-size: 1.05rem;
-      color: rgba(250,249,247,0.65);
-      margin-bottom: 52px;
-      max-width: 480px;
-      font-weight: 300;
-    }
-
-    .contact-wrapper {
-      display: flex;
-      gap: 64px;
-      flex-wrap: wrap;
-    }
-
-    .contact-info { flex: 0 0 auto; }
-
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-
-    .contact-item-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-
-    .contact-item-text strong {
-      display: block;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent-light);
-      margin-bottom: 4px;
-    }
-
-    .contact-item-text span, .contact-item-text a {
-      font-size: 1rem;
-      color: rgba(250,249,247,0.85);
-    }
-
-    .contact-item-text a:hover { color: var(--accent-light); }
-
-    .contact-form { flex: 1; min-width: 280px; }
-
-    .form-group { margin-bottom: 18px; }
-
-    .form-group label {
-      display: block;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(250,249,247,0.55);
-      margin-bottom: 8px;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 13px 18px;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      font-size: 1rem;
-      font-family: 'Inter', sans-serif;
-      background: rgba(255,255,255,0.05);
-      color: var(--cream);
-      transition: border-color 0.2s, background 0.2s;
-      outline: none;
-    }
-
-    .form-group input::placeholder,
-    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: var(--accent);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .form-group textarea { resize: vertical; min-height: 120px; }
-
-    /* =============================
-       FOOTER
-    ============================= */
-    footer {
-      background: var(--primary);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.35);
-      text-align: center;
-      padding: 36px 24px;
-      font-size: 0.84rem;
-    }
-
-    footer a { color: var(--accent-light); }
-    footer strong { color: rgba(255,255,255,0.6); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends in SoCal – Hire a Friend to Get Things Done</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #2d2d2d;
+            --accent: #ff6900;
+            --accent-light: #fcb900;
+            --palm-green: #2d5016;
+            --palm-light-green: #7c9850;
+            --palm-brown: #8b6f47;
+            --white: #ffffff;
+            --cream: #faf9f7;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+            --orange-gradient: linear-gradient(135deg, rgba(252, 185, 0, 1) 0%, rgba(255, 105, 0, 1) 100%);
+            --palm-gradient: linear-gradient(135deg, #7c9850 0%, #2d5016 100%);
+            --luxury-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Premium Typography */
+        .display-xl {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+        }
+
+        .display-lg {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+        }
+
+        .heading-xl {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .subheading {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--gray-600);
+        }
+
+        /* Static Navigation at Top */
+        .navbar {
+            position: relative;
+            width: 100%;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 240px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            background: var(--orange-gradient);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Premium Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: var(--orange-gradient);
+            clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+            opacity: 0.05;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .hero-tagline {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .hero-location {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--orange-gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 105, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 105, 0, 0.4);
+        }
+
+        .btn-secondary {
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 2px solid var(--palm-light-green);
+            transition: border-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--palm-green);
+        }
+
+        /* Premium Services Grid */
+        .services {
+            padding: 8rem 0;
+            background: var(--white);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-eyebrow {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--palm-green);
+            margin-bottom: 1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid var(--gray-200);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--orange-gradient);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--luxury-shadow);
+            border-color: transparent;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .service-link {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .service-link:hover {
+            gap: 0.75rem;
+        }
+
+        /* About / Feature Section */
+        .about {
+            padding: 8rem 0;
+            background: var(--cream);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--gray-600);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+
+        .about-visual {
+            background: var(--cream);
+            border-radius: 16px;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 0;
+            background: var(--primary);
+            color: white;
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-subtitle {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--orange-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .contact-item h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-light);
+        }
+
+        .contact-item a, .contact-item span {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            margin-top: 4rem;
+            text-align: left;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: rgba(255,255,255,0.06);
+            color: white;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.09);
+        }
+
+        .form-group textarea { resize: vertical; min-height: 120px; }
+
+        /* Quote block */
+        .quote-block {
+            background: var(--primary);
+            color: var(--cream);
+            border-radius: 12px;
+            padding: 2.5rem 3rem;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-style: italic;
+            font-weight: 500;
+            border-left: 4px solid var(--accent-light);
+            margin-top: 3rem;
+        }
+
+        /* Stadium section */
+        .stadium {
+            padding: 8rem 0;
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+        }
+
+        .stadium h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .stadium p {
+            font-size: 1.125rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 500px;
+            margin: 0 auto 3rem;
+        }
+
+        .stadium .section-eyebrow {
+            color: var(--accent-light);
+        }
+
+        .stadium-emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--palm-brown);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--orange-gradient);
+            border-radius: 4px;
+        }
+    </style>
 </head>
-
 <body>
 
-  <!-- ===== NAV ===== -->
-  <nav>
-    <div class="nav-inner">
-      <div class="nav-logo">Friends in <span>SoCal</span> 🌴</div>
-      <ul class="nav-links">
-        <li><a href="#services">What We Do</a></li>
-        <li><a href="#stadium">Giveaways</a></li>
-        <li><a href="#smoothies">Smoothies</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <a href="sms:+19999999999" class="btn btn-gold" style="font-size:0.82rem; padding:12px 24px;">💬 Text Us</a>
-    </div>
-  </nav>
-
-
-  <!-- ===== HERO ===== -->
-  <section id="hero">
-    <div class="hero-content">
-      <div class="section-eyebrow">Southern California's Most Reliable Friend</div>
-      <h1>Need Something Done in SoCal?<br><em>Hire a Friend.</em></h1>
-      <p>Busy day? Out of town? Missed a drop? We handle local pickups, errands, and tasks so you don't have to.</p>
-      <div class="hero-buttons">
-        <a href="sms:+19999999999" class="btn btn-gold">💬 Text a Friend</a>
-        <a href="#contact" class="btn btn-outline-cream">Request Help</a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== SERVICES ===== -->
-  <section id="services" class="section">
-    <div class="container">
-      <div class="section-eyebrow">What We Help With</div>
-      <h2>Your go-to person in Southern California.</h2>
-      <p class="intro">Think of us as your go-to person in Southern California. If it needs to be handled locally, we've got it.</p>
-
-      <div class="services-grid">
-
-        <div class="service-card">
-          <div class="service-icon">🏟️</div>
-          <div>
-            <h3>Stadium Giveaways</h3>
-            <p>Limited drops, bobbleheads, promos — we'll get there so you don't have to.</p>
-          </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="https://red-late-lemming-903.mypinata.cloud/ipfs/bafybeig3p5rahnjczyl5esd7o4egyl5rtcf5llhvdgv2j75lhw6gxonma4" alt="Friends SoCal Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services">What We Do</a></li>
+                <li><a href="#stadium">Giveaways</a></li>
+                <li><a href="#smoothies">Smoothies</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="sms:+19999999999" class="nav-cta">💬 Text Us</a></li>
+            </ul>
         </div>
-
-        <div class="service-card">
-          <div class="service-icon">🛍️</div>
-          <div>
-            <h3>Shopping & Store Runs</h3>
-            <p>Target, Costco, specialty stores — you name it, we'll grab it.</p>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon">📦</div>
-          <div>
-            <h3>Marketplace Pickups</h3>
-            <p>Facebook Marketplace, OfferUp, Craigslist — we handle the meetup.</p>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon">🏠</div>
-          <div>
-            <h3>Airbnb Guest Support</h3>
-            <p>Key handoffs, restocking, guest check-ins when you can't be there.</p>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon">🚗</div>
-          <div>
-            <h3>Local Item Delivery</h3>
-            <p>Need something moved across town? We'll make it happen.</p>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="service-icon">🥤</div>
-          <div>
-            <h3>Bulk Smoothie Delivery</h3>
-            <p>Fresh whole-fruit smoothies for teams and events. <a href="https://frute.app" target="_blank">Powered by Frute →</a></p>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="services-quote">
-        "If you had a reliable friend in SoCal, what would you ask them to do?"
-      </div>
-    </div>
-  </section>
+    </nav>
 
 
-  <!-- ===== STADIUM ===== -->
-  <section id="stadium" class="section">
-    <div class="container">
-      <span class="stadium-icon">🏟️</span>
-      <div class="section-eyebrow">Limited Drops</div>
-      <h2>Stadium Giveaway Pickups</h2>
-      <p>Don't miss limited stadium drops. We'll go, grab it, and get it to you.</p>
-      <a href="#contact" class="btn btn-gold">Reserve a Pickup</a>
-    </div>
-  </section>
-
-
-  <!-- ===== SMOOTHIES ===== -->
-  <section id="smoothies" class="section">
-    <div class="container">
-      <div class="section-two-col">
-        <div class="col-text">
-          <div class="section-eyebrow">Bulk Orders</div>
-          <h2>Bulk Smoothie Delivery</h2>
-          <p>Fresh, whole-fruit smoothies delivered for teams, offices, and events. No concentrates, no junk — just real fruit.</p>
-          <a href="https://frute.app" target="_blank" class="btn btn-gold">Order Smoothies</a>
-          <p class="powered-by">Powered by <a href="https://frute.app" target="_blank">Frute</a> — real fruit, real good.</p>
-        </div>
-        <div class="col-visual">
-          <div class="smoothie-visual">🥤<br>🍓🍌</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ===== CONTACT ===== -->
-  <section id="contact" class="section">
-    <div class="container">
-      <div class="section-eyebrow">Get in Touch</div>
-      <h2>Text Us Like a Friend</h2>
-      <p class="contact-subtext">Tell us what you need. We'll let you know if we can handle it.</p>
-
-      <div class="contact-wrapper">
-
-        <div class="contact-info">
-          <div class="contact-item">
-            <div class="contact-item-icon">💬</div>
-            <div class="contact-item-text">
-              <strong>Text Us</strong>
-              <a href="sms:+19999999999">+1 (999) 999-9999</a>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content fade-in">
+                <div class="hero-location">Los Angeles • Orange County • San Diego</div>
+                <h1 class="display-xl">Need Something<br>Done in SoCal?<br><em style="font-style:italic; background: var(--orange-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">Hire a Friend.</em></h1>
+                <p class="hero-tagline" style="margin-top:1.5rem;">Busy day? Out of town? Missed a drop? We handle local pickups, errands, and tasks so you don't have to.</p>
+                <div class="hero-cta" style="margin-top:2.5rem;">
+                    <a href="sms:+19999999999" class="btn-primary">💬 Text a Friend</a>
+                    <a href="#contact" class="btn-secondary">Request Help</a>
+                </div>
             </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-item-icon">📧</div>
-            <div class="contact-item-text">
-              <strong>Email</strong>
-              <a href="mailto:burrowsroderick1@gmail.com">burrowsroderick1@gmail.com</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-item-icon">📍</div>
-            <div class="contact-item-text">
-              <strong>Where We Operate</strong>
-              <span>Southern California</span>
-            </div>
-          </div>
+            <div class="hero-visual fade-in"></div>
         </div>
-
-        <form class="contact-form" onsubmit="handleSubmit(event)">
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="First name is fine" required />
-          </div>
-          <div class="form-group">
-            <label for="request">What do you need?</label>
-            <textarea id="request" name="request" placeholder="e.g. Pick up a bobblehead from Dodger Stadium on Friday" required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="location">Your location or drop-off area</label>
-            <input type="text" id="location" name="location" placeholder="e.g. Pasadena, CA" required />
-          </div>
-          <button type="submit" class="btn btn-gold" style="width:100%;">Send Request</button>
-        </form>
-
-      </div>
-    </div>
-  </section>
+    </section>
 
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <p>Made with ☀️ in Southern California &nbsp;·&nbsp; <strong>Friends in SoCal</strong></p>
-    <p style="margin-top:8px;">Smoothies powered by <a href="https://frute.app" target="_blank">Frute</a></p>
-  </footer>
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">What We Help With</div>
+                <h2 class="display-lg">Your go-to person in Southern California.</h2>
+                <p class="subheading">Think of us as your go-to person in Southern California. If it needs to be handled locally, we've got it.</p>
+            </div>
+            <div class="services-grid">
+
+                <div class="service-card">
+                    <div class="service-icon">🏟️</div>
+                    <h3 class="service-title">Stadium Giveaways</h3>
+                    <p class="service-description">Limited drops, bobbleheads, promos — we'll get there and grab it so you don't have to miss out.</p>
+                    <a href="#stadium" class="service-link">Reserve a Pickup →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🛍️</div>
+                    <h3 class="service-title">Shopping & Store Runs</h3>
+                    <p class="service-description">Target, Costco, specialty stores — you name it, we'll grab it and get it to you.</p>
+                    <a href="#contact" class="service-link">Get in Touch →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📦</div>
+                    <h3 class="service-title">Marketplace Pickups</h3>
+                    <p class="service-description">Facebook Marketplace, OfferUp, Craigslist — we handle the meetup so you don't have to.</p>
+                    <a href="#contact" class="service-link">Request a Pickup →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3 class="service-title">Airbnb Guest Support</h3>
+                    <p class="service-description">Key handoffs, restocking, guest check-ins — we keep your property running when you can't be there.</p>
+                    <a href="#contact" class="service-link">Learn More →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🚗</div>
+                    <h3 class="service-title">Local Item Delivery</h3>
+                    <p class="service-description">Need something moved across town? We'll pick it up and get it where it needs to go.</p>
+                    <a href="#contact" class="service-link">Get a Quote →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🥤</div>
+                    <h3 class="service-title">Bulk Smoothie Delivery</h3>
+                    <p class="service-description">Fresh, whole-fruit smoothies delivered for teams, offices, and events. Powered by Frute.</p>
+                    <a href="https://frute.app" target="_blank" class="service-link">Order on Frute →</a>
+                </div>
+
+            </div>
+
+            <div class="quote-block">
+                "If you had a reliable friend in SoCal, what would you ask them to do?"
+            </div>
+        </div>
+    </section>
 
 
-  <script>
-    function handleSubmit(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const request = document.getElementById('request').value;
-      const location = document.getElementById('location').value;
-      const body = encodeURIComponent(`Hi, I'm ${name}.\n\nRequest: ${request}\nLocation: ${location}`);
-      window.location.href = `mailto:burrowsroderick1@gmail.com?subject=Help Request from ${encodeURIComponent(name)}&body=${body}`;
-    }
-  </script>
+    <!-- Stadium Giveaways -->
+    <section class="stadium" id="stadium">
+        <div class="container">
+            <span class="stadium-emoji">🏟️</span>
+            <div class="section-eyebrow">Limited Drops</div>
+            <h2 class="display-lg">Stadium Giveaway Pickups</h2>
+            <p>Don't miss limited stadium drops. We'll go, grab it, and get it to you — Dodgers, Lakers, Rams, you name it.</p>
+            <a href="#contact" class="btn-primary">Reserve a Pickup</a>
+        </div>
+    </section>
+
+
+    <!-- Smoothies -->
+    <section class="about" id="smoothies">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="section-eyebrow">Bulk Orders</div>
+                    <h2 class="display-lg">Bulk Smoothie Delivery</h2>
+                    <p>Fresh, whole-fruit smoothies delivered for teams, offices, and events. No concentrates, no junk — just real fruit blended right.</p>
+                    <p>Perfect for corporate events, team meetups, or any occasion where you want to treat people to something genuinely good.</p>
+                    <div style="margin-top:2rem; display:flex; gap:1.5rem; align-items:center; flex-wrap:wrap;">
+                        <a href="https://frute.app" target="_blank" class="btn-primary">Order Smoothies</a>
+                        <a href="https://frute.app" target="_blank" class="btn-secondary">Powered by Frute</a>
+                    </div>
+                </div>
+                <div class="about-visual" style="font-size:8rem; background: linear-gradient(135deg, #fff0e0, #ffe4cc); flex-direction:column; gap:0.5rem;">
+                    <span>🥤</span>
+                    <span style="font-size:4rem;">🍓🍌🍊</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="section-eyebrow" style="color:var(--accent-light);">Get in Touch</div>
+                <h2 class="display-lg">Text Us Like a Friend</h2>
+                <p class="contact-subtitle">Tell us what you need. We'll let you know if we can handle it.</p>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">💬</div>
+                        <h4>Text Us</h4>
+                        <a href="sms:+19999999999">+1 (999) 999-9999</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <h4>Email</h4>
+                        <a href="mailto:burrowsroderick1@gmail.com">burrowsroderick1@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <h4>Coverage</h4>
+                        <span>Southern California</span>
+                    </div>
+                </div>
+
+                <form class="contact-form" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="First name is fine" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="request">What do you need?</label>
+                        <textarea id="request" name="request" placeholder="e.g. Pick up a bobblehead from Dodger Stadium on Friday" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Your location or drop-off area</label>
+                        <input type="text" id="location" name="location" placeholder="e.g. Pasadena, CA" required />
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%; border:none; cursor:pointer; margin-top:0.5rem;">Send Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Made with ☀️ in Southern California &nbsp;·&nbsp; Friends in SoCal</p>
+            <p style="margin-top:0.5rem;">Smoothies powered by <a href="https://frute.app" target="_blank">Frute</a></p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.service-card, .about-content, .contact-content').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact form
+        function handleSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const request = document.getElementById('request').value;
+            const location = document.getElementById('location').value;
+            const body = encodeURIComponent(`Hi, I'm ${name}.\n\nRequest: ${request}\nLocation: ${location}`);
+            window.location.href = `mailto:burrowsroderick1@gmail.com?subject=Help Request from ${encodeURIComponent(name)}&body=${body}`;
+        }
+    </script>
 
 </body>
 </html>
