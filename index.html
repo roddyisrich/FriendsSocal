@@ -5,22 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Friends in SoCal – Hire a Friend to Get Things Done</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     /* =============================
-       BASE RESET & TYPOGRAPHY
+       TOKENS
     ============================= */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --primary:        #1a1a1a;
+      --secondary:      #2d2d2d;
+      --accent:         #ff6900;
+      --accent-light:   #fcb900;
+      --palm-green:     #2d5016;
+      --palm-light:     #7c9850;
+      --palm-brown:     #8b6f47;
+      --white:          #ffffff;
+      --cream:          #faf9f7;
+      --gray-100:       #f8f9fa;
+      --gray-200:       #e9ecef;
+      --gray-600:       #6c757d;
+      --gray-800:       #343a40;
+      --orange-grad:    linear-gradient(135deg, #fcb900 0%, #ff6900 100%);
+      --palm-grad:      linear-gradient(135deg, #7c9850 0%, #2d5016 100%);
+      --shadow:         0 10px 40px rgba(0,0,0,0.12);
+      --shadow-heavy:   0 20px 60px rgba(0,0,0,0.25);
     }
 
+    /* =============================
+       RESET
+    ============================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-      background: #fff8f2;
-      color: #2d1f14;
+      font-family: 'Inter', sans-serif;
+      background: var(--primary);
+      color: var(--cream);
       line-height: 1.65;
     }
 
@@ -30,59 +52,75 @@
        UTILITY
     ============================= */
     .container {
-      width: 100%;
-      max-width: 860px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
     }
 
-    .section { padding: 72px 20px; }
+    .section { padding: 96px 24px; }
 
-    .section-label {
-      font-size: 0.78rem;
+    .section-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #e8612a;
-      margin-bottom: 12px;
+      color: var(--accent-light);
+      margin-bottom: 16px;
     }
-
-    h1, h2, h3 { line-height: 1.2; }
 
     /* =============================
        BUTTONS
     ============================= */
     .btn {
       display: inline-block;
-      padding: 14px 28px;
+      padding: 15px 32px;
       border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
       cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
       border: none;
       text-align: center;
     }
 
     .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.3);
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #f76b1c, #e83d5a);
-      color: #fff;
+    .btn-gold {
+      background: var(--orange-grad);
+      color: var(--white);
     }
 
-    .btn-outline {
+    .btn-outline-cream {
       background: transparent;
-      color: #e8612a;
-      border: 2px solid #e8612a;
+      color: var(--cream);
+      border: 2px solid rgba(255,255,255,0.5);
     }
 
-    .btn-outline:hover {
-      background: #e8612a;
-      color: #fff;
+    .btn-outline-cream:hover {
+      border-color: var(--accent-light);
+      color: var(--accent-light);
+    }
+
+    .btn-outline-gold {
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+
+    .btn-outline-gold:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .btn-green {
+      background: var(--palm-grad);
+      color: var(--white);
     }
 
     /* =============================
@@ -92,14 +130,14 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 248, 242, 0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid #f0d8c8;
-      padding: 14px 20px;
+      background: rgba(26,26,26,0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 24px;
     }
 
     .nav-inner {
-      max-width: 860px;
+      max-width: 1000px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -107,49 +145,82 @@
     }
 
     .nav-logo {
-      font-size: 1.1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
       font-weight: 700;
-      color: #e8612a;
+      color: var(--cream);
     }
+
+    .nav-logo span { color: var(--accent-light); }
 
     .nav-links {
       display: flex;
-      gap: 24px;
+      gap: 28px;
       list-style: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 500;
+      color: rgba(255,255,255,0.7);
     }
 
-    .nav-links a { color: #2d1f14; transition: color 0.15s; }
-    .nav-links a:hover { color: #e8612a; }
+    .nav-links a:hover { color: var(--accent-light); }
 
-    @media (max-width: 600px) {
-      .nav-links { display: none; }
-    }
+    @media (max-width: 640px) { .nav-links { display: none; } }
 
     /* =============================
        HERO
     ============================= */
     #hero {
-      background: linear-gradient(160deg, #ff9a5c 0%, #f76b1c 35%, #e83d5a 70%, #c94499 100%);
-      color: #fff;
-      padding: 100px 20px 90px;
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      padding: 80px 24px;
+      overflow: hidden;
+      background:
+        linear-gradient(160deg,
+          rgba(26,26,26,0.72) 0%,
+          rgba(26,26,26,0.55) 50%,
+          rgba(26,26,26,0.8) 100%),
+        linear-gradient(135deg, #3d1a00 0%, #1a0a00 40%, #0d1a08 100%);
     }
 
+    /* Subtle palm silhouette overlay */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(255,105,0,0.12) 0%, transparent 65%),
+                  radial-gradient(ellipse at 20% 80%, rgba(45,80,22,0.2) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
+
     #hero h1 {
-      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
       font-weight: 800;
-      max-width: 700px;
-      margin: 0 auto 20px;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+      line-height: 1.15;
+      margin-bottom: 24px;
+      color: var(--white);
+    }
+
+    #hero h1 em {
+      font-style: italic;
+      background: var(--orange-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     #hero p {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      max-width: 560px;
-      margin: 0 auto 40px;
-      opacity: 0.92;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 540px;
+      margin: 0 auto 48px;
+      color: rgba(250,249,247,0.82);
+      font-weight: 300;
     }
 
     .hero-buttons {
@@ -159,252 +230,349 @@
       flex-wrap: wrap;
     }
 
-    .btn-white {
-      background: #fff;
-      color: #e8612a;
-    }
-
-    .btn-ghost {
-      background: rgba(255,255,255,0.18);
-      color: #fff;
-      border: 2px solid rgba(255,255,255,0.6);
-    }
-
-    .btn-ghost:hover {
-      background: rgba(255,255,255,0.3);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-
     /* =============================
        SERVICES
     ============================= */
-    #services { background: #fff8f2; }
+    #services {
+      background: var(--cream);
+      color: var(--primary);
+    }
+
+    #services .section-eyebrow { color: var(--accent); }
+
+    #services h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
 
     #services .intro {
-      font-size: 1.1rem;
-      max-width: 640px;
-      margin-bottom: 40px;
-      color: #5a3a28;
+      font-size: 1.05rem;
+      color: var(--gray-600);
+      max-width: 600px;
+      margin-bottom: 52px;
     }
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
-      margin-bottom: 40px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
     }
 
     .service-card {
-      background: #fff;
-      border: 1.5px solid #f0d8c8;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
       border-radius: 16px;
-      padding: 20px 22px;
+      padding: 28px 26px;
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      transition: box-shadow 0.15s;
+      gap: 16px;
+      transition: box-shadow 0.2s, transform 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
     }
 
     .service-card:hover {
-      box-shadow: 0 4px 18px rgba(232, 97, 42, 0.12);
+      box-shadow: 0 12px 36px rgba(255,105,0,0.12);
+      transform: translateY(-3px);
     }
 
-    .service-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .service-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--gray-100);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     .service-card h3 {
+      font-family: 'Montserrat', sans-serif;
       font-size: 0.95rem;
       font-weight: 700;
-      color: #2d1f14;
-      margin-bottom: 4px;
+      color: var(--primary);
+      margin-bottom: 6px;
     }
 
-    .service-card p { font-size: 0.85rem; color: #7a5a48; }
+    .service-card p {
+      font-size: 0.84rem;
+      color: var(--gray-600);
+      line-height: 1.55;
+    }
 
-    .services-cta {
-      background: linear-gradient(135deg, #fff3ec, #ffe0d0);
-      border-radius: 16px;
-      padding: 28px 30px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #2d1f14;
-      border-left: 4px solid #e8612a;
+    .service-card p a { color: var(--accent); font-weight: 600; }
+
+    .services-quote {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--cream);
+      border-radius: 20px;
+      padding: 36px 40px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-style: italic;
+      font-weight: 500;
+      border-left: 4px solid var(--accent-light);
     }
 
     /* =============================
        STADIUM
     ============================= */
     #stadium {
-      background: linear-gradient(135deg, #1a0a00, #3d1400);
-      color: #fff;
+      background: linear-gradient(160deg, #0d0d0d, #1a0a00, #2a1000);
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    #stadium .section-label { color: #ff9a5c; }
+    #stadium::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,105,0,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    #stadium .section-eyebrow { color: var(--accent-light); }
 
     #stadium h2 {
-      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 800;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      color: var(--white);
     }
 
     #stadium p {
-      font-size: 1.05rem;
-      max-width: 520px;
-      margin: 0 auto 36px;
-      opacity: 0.85;
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto 44px;
+      color: rgba(250,249,247,0.78);
+      font-weight: 300;
     }
 
-    .stadium-emoji { font-size: 3.5rem; margin-bottom: 20px; }
+    .stadium-icon {
+      font-size: 4rem;
+      margin-bottom: 24px;
+      display: block;
+    }
 
     /* =============================
        SMOOTHIES
     ============================= */
-    #smoothies { background: linear-gradient(160deg, #fff0e8, #ffe4cc); }
+    #smoothies {
+      background: var(--palm-green);
+      color: var(--white);
+    }
 
-    .section-inner {
+    .section-two-col {
       display: flex;
       align-items: center;
-      gap: 48px;
+      gap: 64px;
       flex-wrap: wrap;
     }
 
-    .smoothie-text { flex: 1; min-width: 260px; }
+    .col-text { flex: 1; min-width: 280px; }
+    .col-visual { flex: 0 0 auto; text-align: center; }
+
+    #smoothies .section-eyebrow { color: var(--accent-light); }
 
     #smoothies h2 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 800;
-      margin-bottom: 14px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 16px;
     }
 
     #smoothies p {
       font-size: 1.05rem;
-      color: #5a3a28;
-      margin-bottom: 28px;
-      max-width: 440px;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 32px;
+      max-width: 420px;
+      font-weight: 300;
     }
 
-    .smoothie-visual { flex: 0 0 auto; font-size: 6rem; text-align: center; }
+    .smoothie-visual {
+      font-size: 7rem;
+      line-height: 1;
+    }
 
-    .powered-by { font-size: 0.8rem; color: #a06040; margin-top: 10px; }
-    .powered-by a { color: #e8612a; font-weight: 600; }
+    .powered-by {
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .powered-by a {
+      color: var(--accent-light);
+      font-weight: 600;
+    }
 
     /* =============================
        CONTACT
     ============================= */
-    #contact { background: #fff8f2; }
+    #contact { background: var(--secondary); }
+
+    #contact .section-eyebrow { color: var(--accent-light); }
 
     #contact h2 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 800;
-      margin-bottom: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--white);
     }
 
-    .subtext {
-      color: #7a5a48;
+    .contact-subtext {
       font-size: 1.05rem;
-      margin-bottom: 36px;
-      max-width: 500px;
+      color: rgba(250,249,247,0.65);
+      margin-bottom: 52px;
+      max-width: 480px;
+      font-weight: 300;
     }
 
     .contact-wrapper {
       display: flex;
-      gap: 48px;
+      gap: 64px;
       flex-wrap: wrap;
     }
 
     .contact-info { flex: 0 0 auto; }
 
-    .contact-info-item {
+    .contact-item {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 18px;
-      font-size: 1rem;
-      color: #2d1f14;
+      gap: 16px;
+      margin-bottom: 28px;
     }
 
-    .contact-info-item .icon { font-size: 1.4rem; }
-    .contact-info-item a { color: #e8612a; font-weight: 600; }
+    .contact-item-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
 
-    .contact-form { flex: 1; min-width: 260px; }
+    .contact-item-text strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 4px;
+    }
 
-    .form-group { margin-bottom: 16px; }
+    .contact-item-text span, .contact-item-text a {
+      font-size: 1rem;
+      color: rgba(250,249,247,0.85);
+    }
+
+    .contact-item-text a:hover { color: var(--accent-light); }
+
+    .contact-form { flex: 1; min-width: 280px; }
+
+    .form-group { margin-bottom: 18px; }
 
     .form-group label {
       display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #5a3a28;
-      margin-bottom: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(250,249,247,0.55);
+      margin-bottom: 8px;
     }
 
     .form-group input,
     .form-group textarea {
       width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid #f0d8c8;
+      padding: 13px 18px;
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 12px;
       font-size: 1rem;
-      font-family: inherit;
-      background: #fff;
-      color: #2d1f14;
-      transition: border-color 0.15s;
+      font-family: 'Inter', sans-serif;
+      background: rgba(255,255,255,0.05);
+      color: var(--cream);
+      transition: border-color 0.2s, background 0.2s;
       outline: none;
     }
 
-    .form-group input:focus,
-    .form-group textarea:focus { border-color: #e8612a; }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
 
-    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
 
     /* =============================
        FOOTER
     ============================= */
     footer {
-      background: #1a0a00;
-      color: rgba(255,255,255,0.6);
+      background: var(--primary);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.35);
       text-align: center;
-      padding: 32px 20px;
-      font-size: 0.85rem;
+      padding: 36px 24px;
+      font-size: 0.84rem;
     }
 
-    footer span { color: #ff9a5c; }
+    footer a { color: var(--accent-light); }
+    footer strong { color: rgba(255,255,255,0.6); }
   </style>
 </head>
 
 <body>
 
-  <!-- NAV -->
+  <!-- ===== NAV ===== -->
   <nav>
     <div class="nav-inner">
-      <div class="nav-logo">Friends in SoCal 🌴</div>
+      <div class="nav-logo">Friends in <span>SoCal</span> 🌴</div>
       <ul class="nav-links">
         <li><a href="#services">What We Do</a></li>
         <li><a href="#stadium">Giveaways</a></li>
         <li><a href="#smoothies">Smoothies</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a href="sms:+19999999999" class="btn btn-primary" style="font-size:0.9rem;">Text Us</a>
+      <a href="sms:+19999999999" class="btn btn-gold" style="font-size:0.82rem; padding:12px 24px;">💬 Text Us</a>
     </div>
   </nav>
 
 
-  <!-- HERO -->
+  <!-- ===== HERO ===== -->
   <section id="hero">
-    <h1>Need Something Done in SoCal? Hire a Friend.</h1>
-    <p>Busy day? Out of town? Missed a drop? We handle local pickups, errands, and tasks so you don't have to.</p>
-    <div class="hero-buttons">
-      <a href="sms:+19999999999" class="btn btn-white">💬 Text a Friend</a>
-      <a href="#contact" class="btn btn-ghost">Request Help</a>
+    <div class="hero-content">
+      <div class="section-eyebrow">Southern California's Most Reliable Friend</div>
+      <h1>Need Something Done in SoCal?<br><em>Hire a Friend.</em></h1>
+      <p>Busy day? Out of town? Missed a drop? We handle local pickups, errands, and tasks so you don't have to.</p>
+      <div class="hero-buttons">
+        <a href="sms:+19999999999" class="btn btn-gold">💬 Text a Friend</a>
+        <a href="#contact" class="btn btn-outline-cream">Request Help</a>
+      </div>
     </div>
   </section>
 
 
-  <!-- WHAT WE HELP WITH -->
+  <!-- ===== SERVICES ===== -->
   <section id="services" class="section">
     <div class="container">
-      <div class="section-label">What We Help With</div>
-      <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 16px;">Your go-to person in Southern California.</h2>
+      <div class="section-eyebrow">What We Help With</div>
+      <h2>Your go-to person in Southern California.</h2>
       <p class="intro">Think of us as your go-to person in Southern California. If it needs to be handled locally, we've got it.</p>
 
       <div class="services-grid">
@@ -453,77 +621,79 @@
           <div class="service-icon">🥤</div>
           <div>
             <h3>Bulk Smoothie Delivery</h3>
-            <p>Fresh whole-fruit smoothies for teams and events. <a href="https://frute.app" target="_blank" style="color:#e8612a;font-weight:600;">Powered by Frute</a></p>
+            <p>Fresh whole-fruit smoothies for teams and events. <a href="https://frute.app" target="_blank">Powered by Frute →</a></p>
           </div>
         </div>
 
       </div>
 
-      <div class="services-cta">
+      <div class="services-quote">
         "If you had a reliable friend in SoCal, what would you ask them to do?"
       </div>
     </div>
   </section>
 
 
-  <!-- STADIUM GIVEAWAYS -->
+  <!-- ===== STADIUM ===== -->
   <section id="stadium" class="section">
     <div class="container">
-      <div class="section-label">Limited Drops</div>
-      <div class="stadium-emoji">🏟️</div>
+      <span class="stadium-icon">🏟️</span>
+      <div class="section-eyebrow">Limited Drops</div>
       <h2>Stadium Giveaway Pickups</h2>
       <p>Don't miss limited stadium drops. We'll go, grab it, and get it to you.</p>
-      <a href="#contact" class="btn btn-primary">Reserve a Pickup</a>
+      <a href="#contact" class="btn btn-gold">Reserve a Pickup</a>
     </div>
   </section>
 
 
-  <!-- SMOOTHIES -->
+  <!-- ===== SMOOTHIES ===== -->
   <section id="smoothies" class="section">
     <div class="container">
-      <div class="section-inner">
-        <div class="smoothie-text">
-          <div class="section-label">Bulk Orders</div>
+      <div class="section-two-col">
+        <div class="col-text">
+          <div class="section-eyebrow">Bulk Orders</div>
           <h2>Bulk Smoothie Delivery</h2>
           <p>Fresh, whole-fruit smoothies delivered for teams, offices, and events. No concentrates, no junk — just real fruit.</p>
-          <a href="https://frute.app" target="_blank" class="btn btn-primary">Order Smoothies</a>
+          <a href="https://frute.app" target="_blank" class="btn btn-gold">Order Smoothies</a>
           <p class="powered-by">Powered by <a href="https://frute.app" target="_blank">Frute</a> — real fruit, real good.</p>
         </div>
-        <div class="smoothie-visual">🥤🍓🍌</div>
+        <div class="col-visual">
+          <div class="smoothie-visual">🥤<br>🍓🍌</div>
+        </div>
       </div>
     </div>
   </section>
 
 
-  <!-- CONTACT -->
+  <!-- ===== CONTACT ===== -->
   <section id="contact" class="section">
     <div class="container">
-      <div class="section-label">Get in Touch</div>
+      <div class="section-eyebrow">Get in Touch</div>
       <h2>Text Us Like a Friend</h2>
-      <p class="subtext">Tell us what you need. We'll let you know if we can handle it.</p>
+      <p class="contact-subtext">Tell us what you need. We'll let you know if we can handle it.</p>
 
       <div class="contact-wrapper">
 
         <div class="contact-info">
-          <div class="contact-info-item">
-            <span class="icon">💬</span>
-            <div>
-              <strong>Text us</strong><br>
+          <div class="contact-item">
+            <div class="contact-item-icon">💬</div>
+            <div class="contact-item-text">
+              <strong>Text Us</strong>
               <a href="sms:+19999999999">+1 (999) 999-9999</a>
             </div>
           </div>
-          <div class="contact-info-item">
-            <span class="icon">📧</span>
-            <div>
-              <strong>Email</strong><br>
+          <div class="contact-item">
+            <div class="contact-item-icon">📧</div>
+            <div class="contact-item-text">
+              <strong>Email</strong>
               <a href="mailto:burrowsroderick1@gmail.com">burrowsroderick1@gmail.com</a>
             </div>
           </div>
-          <div class="contact-info-item">
-            <span class="icon">📍</span>
-            <div>
-              <strong>Where we operate</strong><br>
-              Southern California
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div class="contact-item-text">
+              <strong>Where We Operate</strong>
+              <span>Southern California</span>
             </div>
           </div>
         </div>
@@ -541,7 +711,7 @@
             <label for="location">Your location or drop-off area</label>
             <input type="text" id="location" name="location" placeholder="e.g. Pasadena, CA" required />
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;">Send Request</button>
+          <button type="submit" class="btn btn-gold" style="width:100%;">Send Request</button>
         </form>
 
       </div>
@@ -549,10 +719,10 @@
   </section>
 
 
-  <!-- FOOTER -->
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>Made with ☀️ in Southern California &nbsp;·&nbsp; <span>Friends in SoCal</span></p>
-    <p style="margin-top:6px;">Smoothies powered by <a href="https://frute.app" target="_blank" style="color:#ff9a5c;">Frute</a></p>
+    <p>Made with ☀️ in Southern California &nbsp;·&nbsp; <strong>Friends in SoCal</strong></p>
+    <p style="margin-top:8px;">Smoothies powered by <a href="https://frute.app" target="_blank">Frute</a></p>
   </footer>
 
 
